@@ -10,8 +10,6 @@ library(fixest)
 library(did)
 library(ggplot2)
 
-setwd("C:/Users/sammy/Downloads/RTD_Project")
-
 #-------- Load shapefiles --------
 
 blckgrps_2020 <- st_read("nhgis0014_shape\\nhgis0014_shape\\nhgis0014_shapefile_tl2020_us_blck_grp_2020\\US_blck_grp_2020.shp")
@@ -158,13 +156,21 @@ bds_list <- bds.clean %>%
   group_split(year) %>%
   setNames(unique(bds.clean$year))
 
-#-------- Join LODES to bgs --------
+#-------- Define helper functions for LODES, BDS & QCEW joining --------
 
-lodes_st_list <- lapply(lodes_list,function(df){
-  df %>% inner_join(denver_bgs_2020, by = "GISJOIN")
-})
-
-lodes_st_list_long <- lapply((lodes_st_list),pivot_lodes)
+pivot_lodes <- function(df) {
+  # rename cns columns to NAICS codes
+  cns_cols <- paste0("cns", str_pad(1:20, 2, pad = "0"))
+  colnames(df)[match(cns_cols, colnames(df))] <- NAICS
+  
+  df %>%
+    pivot_longer(
+      cols = NAICS,
+      names_to = "NAICS2",
+      values_to = "jobs"
+    ) %>%
+    filter(jobs > 0)
+}
 
 compute_bg_employment_weights <- function(lodes_long) {
   
@@ -199,44 +205,6 @@ estimate_bg_births <- function(lodes_long, bds_cty) {
     allocate_bds_births_bg(bds_cty)
 }
 
-bg_births <- lapply(names(lodes_st_list_long), function(y) {
-  estimate_bg_births(
-    lodes_long = lodes_st_list_long[[y]],
-    bds_cty    = bds_list[[y]]
-  )
-})
-
-names(bg_births) <- names(lodes_st_list_long)
-
-#-------- Load and clean ZBP data --------
-
-ZBP <- list.files(
-  "ZBP",
-  pattern = "\\-Data.csv$",
-  full.names = TRUE
-)
-
-ZBP_list <- setNames(
-  lapply(ZBP, read.csv, stringsAsFactors = FALSE),
-  str_sub(tools::file_path_sans_ext(basename(ZBP)),4,7)
-)
-
-#-------- Define helper functions for LODES & QCEW joining --------
-
-pivot_lodes <- function(df) {
-  # rename cns columns to NAICS codes
-  cns_cols <- paste0("cns", str_pad(1:20, 2, pad = "0"))
-  colnames(df)[match(cns_cols, colnames(df))] <- NAICS
-  
-  df %>%
-    pivot_longer(
-      cols = NAICS,
-      names_to = "NAICS2",
-      values_to = "jobs"
-    ) %>%
-    filter(jobs > 0)
-}
-
 join_lodes_qcew <- function(lodes_df, qcew_df) {
   lodes_df %>%
     left_join(
@@ -263,6 +231,23 @@ compute_shift_share <- function(df) {
       .groups = "drop"
     )
 }
+
+#-------- Join LODES to bgs and estimate firm entry --------
+
+lodes_st_list <- lapply(lodes_list,function(df){
+  df %>% inner_join(denver_bgs_2020, by = "GISJOIN")
+})
+
+lodes_st_list_long <- lapply((lodes_st_list),pivot_lodes)
+
+bg_births <- lapply(names(lodes_st_list_long), function(y) {
+  estimate_bg_births(
+    lodes_long = lodes_st_list_long[[y]],
+    bds_cty    = bds_list[[y]]
+  )
+})
+
+names(bg_births) <- names(lodes_st_list_long)
 
 #-------- Join QCEW to LODES and estimate wages --------
 
@@ -300,122 +285,6 @@ RCMA_list <- lapply(names(wages_destination), function(y) {
 })
 
 names(RCMA_list) <- names(wages_destination)
-
-#-------- Load and filter ZIP Code Files --------
-
-normalize_zcta_key <- function(sf_obj) {
-  
-  if ("ZCTA5CE20" %in% names(sf_obj)) {
-    sf_obj %>%
-      rename(ZCTA5CE = ZCTA5CE20)
-  } else if ("ZCTA5CE10" %in% names(sf_obj)) {
-    sf_obj %>%
-      rename(ZCTA5CE = ZCTA5CE10)
-  } else {
-    stop("No ZCTA5CE column found")
-  }
-}
-
-extract_zcta_from_ZBP <- function(ZBP_sf) {
-  
-  # Find which column contains the ZIP string
-  name_col <- intersect(c("NAME", "GEO_TTL"), names(ZBP_sf))
-  
-  if (length(name_col) == 0) {
-    stop("No NAME/NAME10/NAME20 column found in ZBP_sf")
-  }
-  
-  # Extract the ZIP
-  ZBP_sf %>%
-    mutate(ZCTA5CE = str_extract(.data[[name_col]], "\\d{5}")) %>%
-    {if ("NAICS2012" %in% colnames(ZBP_sf)) {
-      filter(., NAICS2012 %in% NAICS)
-    } else {
-      filter(., NAICS2017 %in% NAICS)
-    }} %>%
-    {if ("EMPSZES" %in% colnames(ZBP_sf)) {
-      filter(., EMPSZES == "001")
-    } else {
-      .
-    }}
-}
-
-ZIP_Code <- list.files(
-  "nhgis0015_shape",
-  pattern = "\\.shp$",
-  recursive = TRUE,
-  full.names = TRUE
-)
-
-ZIP_list <- setNames(
-  lapply(ZIP_Code, st_read, stringsAsFactors = FALSE),
-  tools::file_path_sans_ext(basename(ZIP_Code))
-)
-
-ZIP_list_CO <- lapply(ZIP_list,function(st){
-  st %>%
-    normalize_zcta_key() %>%
-    filter(str_detect(ZCTA5CE, "^(80|81)"))
-})
-
-names(ZIP_list_CO) <- str_extract(names(ZIP_list_CO), "\\d{4}")
-
-ZBP_list_filtered <- lapply(names(ZIP_list_CO), function(y) {
-  
-  ZIP <- ZIP_list_CO[[y]]
-  ZBP <- ZBP_list[[y]] %>% extract_zcta_from_ZBP()
-  
-  ZIP %>%
-    inner_join(
-      ZBP,
-      by = "ZCTA5CE"
-    ) %>%
-    mutate(ESTAB = as.numeric(ESTAB))
-})
-
-names(ZBP_list_filtered) <- names(ZIP_list_CO)
-
-# -------- Spatial join BDS to ZIP with empl weights --------
-
-US_counties <- st_read("nhgis0016_shape\\nhgis0016_shapefile_tl2023_us_county_2023\\US_county_2023.shp")
-study_area_counties <- US_counties %>%
-  filter(
-    STATEFP == "08",
-    COUNTYFP %in% c("001","005","014","031","035","059")) %>%
-  select(GEOID, COUNTYFP, geometry)
-
-target_crs <- st_crs(study_area_counties)
-
-ZIP_list_CO <- lapply(ZIP_list_CO, function(st) {
-  st %>%
-    st_make_valid() %>%
-    st_transform(target_crs) %>%
-    select(ZCTA5CE, geometry)
-})
-
-study_area_counties <- study_area_counties %>%
-  st_make_valid()
-
-zip_cty_intersect <- lapply(ZIP_list_CO, function(zip_sf) {
-  
-  st_intersection(
-    zip_sf,
-    study_area_counties
-  )
-})
-
-zip_cty_weights <- lapply(zip_cty_intersect, function(st) {
-  
-  st %>%
-    mutate(overlap_area = as.numeric(st_area(.))) %>%
-    group_by(ZCTA5CE) %>%
-    mutate(
-      zip_area = sum(overlap_area),
-      county_weight = overlap_area / zip_area
-    ) %>%
-    ungroup() %>%
-    st_drop_geometry()
-})
 
 #-------- Point-Pattern Analysis using Centroids --------
 
