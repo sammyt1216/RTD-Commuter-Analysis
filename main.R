@@ -14,8 +14,6 @@ library(fixest)
 library(ggplot2)
 library(viridis)
 
-setwd("C:\\Users\\sammy\\Downloads\\RTD_Project")
-
 #-------- Load shapefiles --------
 
 blckgrps_2010 <- st_read("nhgis0014_shape\\nhgis0014_shape\\nhgis0014_shapefile_tl2010_us_blck_grp_2010\\US_blck_grp_2010.shp")
