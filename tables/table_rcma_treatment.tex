@@ -1,0 +1,52 @@
+\begin{table}[!h]
+\centering
+\caption{\label{tab:rcma_treatment}RCMA Treatment Interaction Effects on Residential Outcomes}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{llc}
+\toprule
+Outcome & Coefficient & Estimate\\
+\midrule
+Log Population & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & -0.0142\\
+ &  & (0.0397)\\
+Log Population & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 0.2598\\
+ &  & (4.0308)\\
+Log Population & $\Delta\ln(\text{RCMA}) \times \text{Post} \times \text{Treat}$ & -0.0175\\
+\addlinespace
+ &  & (0.1407)\\
+Log Population & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020} \times \text{Treat}$ & -68.8604\\
+ &  & (159.9178)\\
+Log Med Household Income & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & 0.0016\\
+ &  & (0.0124)\\
+\addlinespace
+Log Med Household Income & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 0.1316\\
+ &  & (4.4901)\\
+Log Med Household Income & $\Delta\ln(\text{RCMA}) \times \text{Post} \times \text{Treat}$ & -0.1197\\
+ &  & (0.3426)\\
+Log Med Household Income & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020} \times \text{Treat}$ & -439.0166\\
+\addlinespace
+ &  & (288.0118)\\
+Log Housing Units & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & -0.0165\\
+ &  & (0.0351)\\
+Log Housing Units & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 0.3354\\
+ &  & (4.6487)\\
+\addlinespace
+Log Housing Units & $\Delta\ln(\text{RCMA}) \times \text{Post} \times \text{Treat}$ & 0.0402\\
+ &  & (0.1305)\\
+Log Housing Units & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020} \times \text{Treat}$ & -89.9298\\
+ &  & (185.6809)\\
+Log Median Rent & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & 0.0238\\
+\addlinespace
+ &  & (0.0274)\\
+Log Median Rent & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 6.3621\\
+ &  & (18.4588)\\
+Log Median Rent & $\Delta\ln(\text{RCMA}) \times \text{Post} \times \text{Treat}$ & -0.1723\\
+ &  & (0.1176)\\
+\addlinespace
+Log Median Rent & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020} \times \text{Treat}$ & -131.6163\\
+ &  & (153.3567)\\
+\bottomrule
+\multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{3}{l}{\rule{0pt}{1em}Bootstrap SEs clustered at tract level in parentheses. $^{*}$p$<$0.1, $^{**}$p$<$0.05, $^{***}$p$<$0.01. Fixed effects: block group + year. $^{(*)}$ indicates clustered SE used in place of bootstrap SE.}\\
+\end{tabular}}
+\end{table}

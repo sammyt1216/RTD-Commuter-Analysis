@@ -1,0 +1,52 @@
+\begin{table}[!h]
+\centering
+\caption{\label{tab:rcma_high_rent}RCMA High-Rent Heterogeneity: Residential Outcomes}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{llc}
+\toprule
+Outcome & Coefficient & Estimate\\
+\midrule
+Log Population & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & 0.0438*\\
+ &  & (0.0227)\\
+Log Population & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 0.2555\\
+ &  & (6.5831)\\
+Log Population & $\Delta\ln(\text{RCMA}) \times \text{Post} \times \text{High Rent}$ & -0.1334*\\
+\addlinespace
+ &  & (0.0729)\\
+Log Population & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020} \times \text{High Rent}$ & 1.467\\
+ &  & (18.9558)\\
+Log Med Household Income & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & 0.001\\
+ &  & (0.0188)\\
+\addlinespace
+Log Med Household Income & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 0.1438\\
+ &  & (7.2127)\\
+Log Med Household Income & $\Delta\ln(\text{RCMA}) \times \text{Post} \times \text{High Rent}$ & -0.0041\\
+ &  & (0.0215)\\
+Log Med Household Income & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020} \times \text{High Rent}$ & -1.9478\\
+\addlinespace
+ &  & (31.6566)\\
+Log Housing Units & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & 0.0366*\\
+ &  & (0.0208)\\
+Log Housing Units & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 0.3272\\
+ &  & (7.6438)\\
+\addlinespace
+Log Housing Units & $\Delta\ln(\text{RCMA}) \times \text{Post} \times \text{High Rent}$ & -0.1191*\\
+ &  & (0.0648)\\
+Log Housing Units & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020} \times \text{High Rent}$ & 1.8916\\
+ &  & (19.4542)\\
+Log Median Rent & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & 0.0055\\
+\addlinespace
+ &  & (0.056)\\
+Log Median Rent & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 21.5721\\
+ &  & (18.3268)\\
+Log Median Rent & $\Delta\ln(\text{RCMA}) \times \text{Post} \times \text{High Rent}$ & 0.0298\\
+ &  & (0.0618)\\
+\addlinespace
+Log Median Rent & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020} \times \text{High Rent}$ & -23.8224\\
+ &  & (79.1123)\\
+\bottomrule
+\multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{3}{l}{\rule{0pt}{1em}Bootstrap SEs clustered at tract level in parentheses. $^{*}$p$<$0.1, $^{**}$p$<$0.05, $^{***}$p$<$0.01. Fixed effects: block group + year. $^{(*)}$ indicates clustered SE used in place of bootstrap SE.}\\
+\end{tabular}}
+\end{table}

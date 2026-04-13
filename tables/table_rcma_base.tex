@@ -1,0 +1,33 @@
+\begin{table}[!h]
+\centering
+\caption{\label{tab:rcma_base}Effects of Resident Commuter Market Access on Residential Outcomes}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{llc}
+\toprule
+Outcome & Coefficient & Estimate\\
+\midrule
+Log Population & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & -0.0146\\
+ &  & (0.0367)\\
+Log Population & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 0.2592\\
+ &  & (4.8717)\\
+Log Med Household Income & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & -0.0011\\
+\addlinespace
+ &  & (0.0125)\\
+Log Med Household Income & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 0.1289\\
+ &  & (4.4179)\\
+Log Housing Units & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & -0.0155\\
+ &  & (0.0324)\\
+\addlinespace
+Log Housing Units & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 0.335\\
+ &  & (5.5315)\\
+Log Median Rent & $\Delta\ln(\text{RCMA}) \times \text{Post}$ & 0.0215\\
+ &  & (0.0262)\\
+Log Median Rent & $\Delta\ln(\text{RCMA})_{CF} \times \text{Post}_{2020}$ & 6.3124\\
+\addlinespace
+ &  & (18.1377)\\
+\bottomrule
+\multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{3}{l}{\rule{0pt}{1em}Bootstrap SEs clustered at tract level in parentheses. $^{*}$p$<$0.1, $^{**}$p$<$0.05, $^{***}$p$<$0.01. Fixed effects: block group + year. $^{(*)}$ indicates clustered SE used in place of bootstrap SE.}\\
+\end{tabular}}
+\end{table}

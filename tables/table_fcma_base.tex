@@ -1,0 +1,33 @@
+\begin{table}[!h]
+\centering
+\caption{\label{tab:fcma_base}Effects of Firm Commuter Market Access on Labor Market Outcomes}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{llc}
+\toprule
+Outcome & Coefficient & Estimate\\
+\midrule
+Log Total Jobs & $\Delta\ln(\text{FCMA}) \times \text{Post}$ & 0.0097\\
+ &  & (0.0202)\\
+Log Total Jobs & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020}$ & 2.598\\
+ &  & (5.828)\\
+Log Jobs per 100 Residents & $\Delta\ln(\text{FCMA}) \times \text{Post}$ & -0.006\\
+\addlinespace
+ &  & (0.0145)\\
+Log Jobs per 100 Residents & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020}$ & 0.1375\\
+ &  & (1.8073)\\
+Log Avg Annual Wage & $\Delta\ln(\text{FCMA}) \times \text{Post}$ & -0.0042\\
+ &  & (0.0055)\\
+\addlinespace
+Log Avg Annual Wage & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020}$ & 0.4489\\
+ &  & (1.1479)\\
+Log Establishment Entry & $\Delta\ln(\text{FCMA}) \times \text{Post}$ & 0.0157\\
+ &  & (0.0111)\\
+Log Establishment Entry & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020}$ & -0.2731\\
+\addlinespace
+ &  & (2.7749)\\
+\bottomrule
+\multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{3}{l}{\rule{0pt}{1em}Bootstrap SEs clustered at tract level in parentheses. $^{*}$p$<$0.1, $^{**}$p$<$0.05, $^{***}$p$<$0.01. Fixed effects: block group + year. $^{(*)}$ indicates clustered SE used in place of bootstrap SE.}\\
+\end{tabular}}
+\end{table}

@@ -1,0 +1,52 @@
+\begin{table}[!h]
+\centering
+\caption{\label{tab:fcma_treatment}FCMA Treatment Interaction Effects on Labor Market Outcomes}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{llc}
+\toprule
+Outcome & Coefficient & Estimate\\
+\midrule
+Log Total Jobs & $\Delta\ln(\text{FCMA}) \times \text{Post}$ & 0.0114\\
+ &  & (0.0239)\\
+Log Total Jobs & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020}$ & 2.5961\\
+ &  & (5.6451)\\
+Log Total Jobs & $\Delta\ln(\text{FCMA}) \times \text{Post} \times \text{Treat}$ & -0.0224\\
+\addlinespace
+ &  & (0.0871)\\
+Log Total Jobs & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020} \times \text{Treat}$ & 0.4887\\
+ &  & (19.9011)\\
+Log Jobs per 100 Residents & $\Delta\ln(\text{FCMA}) \times \text{Post}$ & 0.0021\\
+ &  & (0.0142)\\
+\addlinespace
+Log Jobs per 100 Residents & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020}$ & 0.1934\\
+ &  & (2.2744)\\
+Log Jobs per 100 Residents & $\Delta\ln(\text{FCMA}) \times \text{Post} \times \text{Treat}$ & -0.1017\\
+ &  & (0.1401)\\
+Log Jobs per 100 Residents & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020} \times \text{Treat}$ & -13.2936\\
+\addlinespace
+ &  & (22.234)\\
+Log Avg Annual Wage & $\Delta\ln(\text{FCMA}) \times \text{Post}$ & -0.0088*\\
+ &  & (0.005)\\
+Log Avg Annual Wage & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020}$ & 0.428\\
+ &  & (1.1038)\\
+\addlinespace
+Log Avg Annual Wage & $\Delta\ln(\text{FCMA}) \times \text{Post} \times \text{Treat}$ & 0.0605**\\
+ &  & (0.0289)\\
+Log Avg Annual Wage & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020} \times \text{Treat}$ & 5.0666\\
+ &  & (8.62)\\
+Log Establishment Entry & $\Delta\ln(\text{FCMA}) \times \text{Post}$ & 0.0153\\
+\addlinespace
+ &  & (0.0112)\\
+Log Establishment Entry & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020}$ & -0.3001\\
+ &  & (2.7922)\\
+Log Establishment Entry & $\Delta\ln(\text{FCMA}) \times \text{Post} \times \text{Treat}$ & 0.0054\\
+ &  & (0.0622)\\
+\addlinespace
+Log Establishment Entry & $\Delta\ln(\text{FCMA})_{CF} \times \text{Post}_{2020} \times \text{Treat}$ & 6.5646\\
+ &  & (13.459)\\
+\bottomrule
+\multicolumn{3}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{3}{l}{\rule{0pt}{1em}Bootstrap SEs clustered at tract level in parentheses. $^{*}$p$<$0.1, $^{**}$p$<$0.05, $^{***}$p$<$0.01. Fixed effects: block group + year. $^{(*)}$ indicates clustered SE used in place of bootstrap SE.}\\
+\end{tabular}}
+\end{table}
